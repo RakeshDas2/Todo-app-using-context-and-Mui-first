@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { TodoContextProvider } from './context/contextApi';
+import { useState } from 'react';
+import ShowComponent from './components/ShowComponent';
+import AddComponent from './components/AddComponent';
+import EditComponent from './components/EditComponent';
 
 function App() {
+  const [finalData, setFinalData] = useState([]) 
+  const [data, setData] = useState('')
+  const [show,setShow]=useState(false)
+  const [editIndex,setEditIndex]=useState(0)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoContextProvider value={{ finalData, setFinalData, data, setData,show,setShow,editIndex,setEditIndex }}>
+      <ShowComponent />
+      {finalData.length!==0 && <AddComponent/>}
+      <EditComponent/>
+    </TodoContextProvider>
   );
 }
 
